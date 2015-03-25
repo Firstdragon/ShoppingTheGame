@@ -14,26 +14,30 @@ using namespace
 class shop
 {
 private:
+	enum cell { blank, wall, player1, player2, bonus };
 	int len;
 	int wid;
-	short **floor;
+	cell **floor;
 	unsigned short moveKeys;
-	int s1;
-	int s2;
-	int happines;
+	int happiness_p1;
+	int happiness_p2;
 	int bonusCount;
 public:
 	//Конструктор карты с заданным размером
 	shop (int g, int h);
-	
+
 	//Деструктор
 	~shop ();
 
+	//Функция, рисующая линию
+	//                  коорд. i  | коорд. j |  длина линии |  направление    |    линия чего 
+	void makeLine(int iFrom, int jFrom, int lineLength, string lineWhere, cell lineOfWhat);
+
 	//Функция, проверяющая возможность перемещения
-	int move(int r);
+	int move(cell r);
 
 	//Функция, размещающая бонус в случайном месте карты
-	void setBonus ();
+	void spawnBonus ();
 
 	//Вывод
 	void f_out();

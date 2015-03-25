@@ -10,127 +10,72 @@ shop::shop (int g, int h)
 		exit (-1);
 	}
 	len = g; wid = h;
-	floor = new short *[len];				//Выделяем память под матрицу floor размера len*wid
+	floor = new cell *[len];				//Выделяем память под матрицу floor размера len*wid
 	for (int i = 0; i < len; i++)
-		floor[i] = new short [wid];
+		floor[i] = new cell[wid];
+
 	for (int i = 0; i < len; i++)
 		for (int j = 0; j < wid; j++)
-			floor[i][j] = 0;				//Заполняем всё нулями
-	for (int i = 0; i < len; i++)
-		for (int j = 0; j < wid; j++)		//Стены заполняем единицами
-		{
-			if (i == 0) 
-				floor[i][j] = 1;
-			if (i == len-1)
-				floor[i][j] = 1;
-			if (j == 0) 
-				floor[i][j] = 1;
-			if (j == wid-1)
-				floor[i][j] = 1;
-		}
+			floor[i][j] = blank;				//Заполняем всё нулями
 
+	//Создание "рамок"
+	makeLine(0, 0, wid, "right", wall);      
+	makeLine(len - 1, 0, wid, "right", wall);
+	makeLine(0, 0, len, "down", wall);
+	makeLine(0, wid - 1, len, "down", wall);
+
+	//Создание перекрёстных коридоров
 	if (len % 2 == 0)
 	{
-		for (int i = 0; i < len; i++)			//Создание "дороги" сверху вниз
-		{
-			floor[i][wid / 2 + 2] = 1;
-			floor[i][wid / 2 - 3] = 1;
-		}
+
+		makeLine(0, wid / 2 + 2, len / 2 - 2, "down", wall);
+		makeLine(0, wid / 2 - 3, len / 2 - 2, "down", wall);
+		makeLine(len - 1, wid / 2 + 2, len / 2 - 2, "up", wall);
+		makeLine(len - 1, wid / 2 - 3, len / 2 - 2, "up", wall);
 	} else {
-		for (int i = 0; i < len; i++)			//Создание "дороги" сверху вниз
-		{
-			floor[i][wid / 2 + 2] = 1;
-			floor[i][wid / 2 - 2] = 1;
-		} 
+		makeLine(0, wid / 2 + 2, len / 2 - 1, "down", wall);
+		makeLine(0, wid / 2 - 2, len / 2 - 1, "down", wall);
+		makeLine(len - 1, wid / 2 + 2, len / 2 - 1, "up", wall);
+		makeLine(len - 1, wid / 2 - 2, len / 2 - 1, "up", wall);
 	}
 
 	if (wid % 2 == 0)
 	{
-		for (int j = 0; j < wid; j++)			//Создание "дороги" слева направо
-		{
-			floor[len / 2 + 2][j] = 1;
-			floor[len / 2 - 3][j] = 1;
-		}
+		makeLine(len / 2 + 2, 0, wid / 2 - 2, "right", wall);
+		makeLine(len / 2 - 3, 0, wid / 2 - 2, "right", wall);
+		makeLine(len / 2 + 2, wid - 1, wid / 2 - 2, "left", wall);
+		makeLine(len / 2 - 3, wid - 1, wid / 2 - 2, "left", wall);
 	} else {
-		for (int j = 0; j < wid; j++)			//Создание "дороги" слева направо
-		{
-			floor[len / 2 + 2][j] = 1;
-			floor[len / 2 - 2][j] = 1;
-		}
-	}
-
-	if (len % 2 == 0)
-	{
-		for (int i = 1; i < len-1; i++)			//Уничтожение перекрестия
-		{
-			floor[i][wid / 2] = 0;
-			floor[i][wid / 2 - 1] = 0;
-			floor[i][wid / 2 - 2] = 0;
-			floor[i][wid / 2 + 1] = 0;
-		}
-	} else {
-		for (int i = 1; i < len-1; i++)			//Уничтожение перекрестия
-		{
-			floor[i][wid / 2] = 0;
-			floor[i][wid / 2 - 1] = 0;
-			floor[i][wid / 2 + 1] = 0;
-		}
-	}
-
-	if (wid % 2 == 0)
-	{
-		for (int j = 1; j < wid-1; j++)			//Уничтожение перекрестия
-		{
-			floor[len / 2][j] = 0;
-			floor[len / 2 - 1][j] = 0;
-			floor[len / 2 - 2][j] = 0;
-			floor[len / 2 + 1][j] = 0;
-		}
-	} else {
-		for (int j = 1; j < wid-1; j++)			//Уничтожение перекрестия
-		{
-			floor[len / 2][j] = 0;
-			floor[len / 2 - 1][j] = 0;
-			floor[len / 2 + 1][j] = 0;
-		}
+		makeLine(len / 2 + 2, 0, wid / 2 - 1, "right", wall);
+		makeLine(len / 2 - 2, 0, wid / 2 - 1, "right", wall);
+		makeLine(len / 2 + 2, wid - 1, wid / 2 - 1, "left", wall);
+		makeLine(len / 2 - 2, wid - 1, wid / 2 - 1, "left", wall);
 	}
 
 	if (wid % 2 == 0)							//Создание "дверей"
 	{
-		for (int i = 1; i < len-1; i++)		
-		{
-			floor[i][wid / 4 - 1] = 0;
-			floor[i][wid / 4 - 2] = 0;
-			floor[i][wid / 4 * 3] = 0;
-			floor[i][wid / 4 * 3 + 1] = 0;
-		}
+		makeLine(1, wid / 4 - 2, len - 2, "down", blank);
+		makeLine(1, wid / 4 - 1, len - 2, "down", blank);
+		makeLine(1, wid / 4 * 3, len - 2, "down", blank);
+		makeLine(1, wid / 4 * 3 + 1, len - 2, "down", blank);
 	} else {
-		for (int i = 1; i < len-1; i++)		
-		{
-			floor[i][wid / 4 - 1] = 0;
-			floor[i][wid / 4 - 2] = 0;
-			floor[i][wid / 4 * 3 + 1] = 0;
-			floor[i][wid / 4 * 3 + 2] = 0;
-		}
+		makeLine(1, wid / 4 - 2, len - 2, "down", blank);
+		makeLine(1, wid / 4 - 1, len - 2, "down", blank);
+		makeLine(1, wid / 4 * 3 + 2, len - 2, "down", blank);
+		makeLine(1, wid / 4 * 3 + 1, len - 2, "down", blank);
 	}
 
 	if (len % 2 == 0)							//Создание "дверей"
 	{
-		for (int j = 1; j < wid-1; j++)			
-		{
-			floor[len / 4 - 1][j] = 0;
-			floor[len / 4 - 2][j] = 0;
-			floor[len / 4 * 3][j] = 0;
-			floor[len / 4 * 3 + 1][j] = 0;
-		}
+		makeLine(len / 4 - 2, 1, wid - 2, "right", blank);
+		makeLine(len / 4 - 1, 1, wid - 2, "right", blank);
+		makeLine(len / 4 * 3, 1, wid - 2, "right", blank);
+		makeLine(len / 4 * 3 + 1, 1, wid - 2, "right", blank);
 	} else {
-		for (int j = 1; j < wid-1; j++)			
-		{
-			floor[len / 4 - 1][j] = 0;
-			floor[len / 4 - 2][j] = 0;
-			floor[len / 4 * 3 + 1][j] = 0;
-			floor[len / 4 * 3 + 2][j] = 0;
-		}
+		makeLine(len / 4 - 2, 1, wid - 2, "right", blank);
+		makeLine(len / 4 - 1, 1, wid - 2, "right", blank);
+		makeLine(len / 4 * 3 + 2, 1, wid - 2, "right", blank);
+		makeLine(len / 4 * 3 + 1, 1, wid - 2, "right", blank);
 	}
 	srand(time(0));
 	int startBonusCount = (rand() % 12 + 5);
@@ -141,37 +86,58 @@ shop::shop (int g, int h)
 		{
 			int i = (rand() % (len - 3) + 2);
 			int j = (rand() % (wid - 3) + 2);
-			if (floor[i][j] != 1)
+			if (floor[i][j] != wall)
 			{
-				floor[i][j] = 7;
+				floor[i][j] = bonus;
 			}
 		}
 	}
 }
 
-int shop::move(int r)			//Функция, проверяющая возможность перемещения
+
+int shop::move(cell r)			//Функция, проверяющая возможность перемещения
 {
-	if (r == 1)
+	if (r == wall)
 		return 1;
-	if (r == 7)
-		return 7;
+	if (r == bonus)
+		return 3;
 	return 0;
 }
 
+
+//Функция, рисующая линию
+//                  коорд. i  | коорд. j |  длина линии |  направление    |    линия чего 
+void shop::makeLine(int iFrom, int jFrom, int lineLength, string lineWhere, cell lineOfWhat)
+{
+	if (lineWhere == "right")
+		for (int j = jFrom; j < jFrom + lineLength; j++)
+			floor[iFrom][j] = lineOfWhat;
+	if (lineWhere == "left")
+		for (int j = jFrom; j > jFrom - lineLength; j--)
+			floor[iFrom][j] = lineOfWhat;
+	if (lineWhere == "up")
+		for (int i = iFrom; i > iFrom - lineLength; i--)
+			floor[i][jFrom] = lineOfWhat;
+	if (lineWhere == "down")
+		for (int i = iFrom; i < iFrom + lineLength; i++)
+			floor[i][jFrom] = lineOfWhat;
+}
+
+
 //Функция, размещающая бонус в случайном месте карты
-void shop::setBonus ()
+void shop::spawnBonus ()
 {
 	if (bonusCount < 15)
 	{
 		srand(time(0));
-		int b = (rand() % 2 + 1); //13 5
+		int b = (rand() % 2 + 1);
 		if (b == 2)
 		{
 			int i = (rand() % (len - 3) + 2);
 			int j = (rand() % (wid - 3) + 2);
-			if (floor[i][j] != 1 && floor[i][j] != 2 && floor[i][j] != 7)
+			if (floor[i][j] != wall && floor[i][j] != player1 && floor[i][j] != player2 && floor[i][j] != bonus)
 			{
-				floor[i][j] = 7;
+				floor[i][j] = bonus;
 				bonusCount += 1;
 			}
 		}
@@ -183,36 +149,46 @@ void shop::f_out()				//Вывод магазина
 {
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	s1 = 2;
-	s2 = wid / 2;
-	floor[s1][s2] = 2; 
-	happiness = 0;
+	int player1_i = 2;
+	int player1_j = wid / 2;
+	int player2_i = len - 2;
+	int player2_j = wid / 2;
+	floor[player1_i][player1_j] = player1; 
+	floor[player2_i][player2_j] = player2;
+	happiness_p1 = 0;
+	happiness_p2 = 0;
 	while (moveKeys != 27)
 	{
-		setBonus();
+		spawnBonus();
 		system("cls");	
 		SetConsoleTextAttribute(hConsole, 15);
-		cout << "\n\n\tYour happiness: " << happiness << "\n\n";
+		cout << "\n\n\tPlayer 1 happiness: " << happiness_p1 << "\t\t\tPlayer 2 happiness: " << happiness_p2 << "\n\n";
 		for (int i = 0; i < len; i++)
 		{
 			for (int j = 0; j < wid; j++)
 			{
-				if (floor[i][j] == 1)
+				if (floor[i][j] == wall)
 				{
-					// вывести два раза символ (номер которого 219 в таблице аски) в консоль
-					cout << static_cast<char>(219);
+					//Вывод символа с кодом 219 в таблице аски 
+					cout << static_cast<unsigned char>(219);
 				}
-				if (floor[i][j] == 0)
+				if (floor[i][j] == blank)
 				{
 					cout << " ";
 				}
-				if (floor[i][j] == 2)
+				if (floor[i][j] == player1)
 				{
 					SetConsoleTextAttribute(hConsole, 2);
-					cout << "*";
+					cout << "1";
 					SetConsoleTextAttribute(hConsole, 15);
 				}
-				if (floor[i][j] == 7)
+				if (floor[i][j] == player2)
+				{
+					SetConsoleTextAttribute(hConsole, 3);
+					cout << "2";
+					SetConsoleTextAttribute(hConsole, 15);
+				}
+				if (floor[i][j] == bonus)
 				{
 					SetConsoleTextAttribute(hConsole, 5);
 					cout << "X";
@@ -229,66 +205,127 @@ void shop::f_out()				//Вывод магазина
 		if (moveKeys == 72)				//Если стрелка вверх
 		{
 			// Вверх
-			if (move(floor[s1 - 1][s2]) != 1)
+			if (move(floor[player1_i - 1][player1_j]) != wall)
 			{
-				if (floor[s1 - 1][s2] == 7)
+				if (floor[player1_i - 1][player1_j] == bonus)
 				{
 					bonusCount-=1;
-					happiness+=100;
+					happiness_p1+=100;
 				}
-				floor[s1][s2] = 0;
-				s1--;
-				floor[s1][s2] = 2;
+				floor[player1_i][player1_j] = blank;
+				player1_i--;
+				floor[player1_i][player1_j] = player1;
 			}
 		}
 		if (moveKeys == 80)				//Если стрелка вниз
 		{
 			// Вниз
-			if (move(floor[s1 + 1][s2]) != 1)
+			if (move(floor[player1_i + 1][player1_j]) != wall)
 			{
-				if (floor[s1 + 1][s2] == 7)
+				if (floor[player1_i + 1][player1_j] == bonus)
 				{
 					bonusCount-=1;
-					happiness+=100;
+					happiness_p1+=100;
 				}
-				floor[s1][s2] = 0;
-				s1++;
-				floor[s1][s2] = 2;
+				floor[player1_i][player1_j] = blank;
+				player1_i++;
+				floor[player1_i][player1_j] = player1;
 			}
 		}
 		if (moveKeys == 77)				//Если стрелка вправо
 		{
 			// Вправо
-			if (move(floor[s1][s2 + 1]) != 1)
+			if (move(floor[player1_i][player1_j + 1]) != wall)
 			{
-				if (floor[s1][s2 + 1] == 7)
+				if (floor[player1_i][player1_j + 1] == bonus)
 				{
 					bonusCount-=1;
-					happiness+=100;
+					happiness_p1+=100;
 				}
-				floor[s1][s2] = 0;
-				s2++;
-				floor[s1][s2] = 2;
+				floor[player1_i][player1_j] = blank;
+				player1_j++;
+				floor[player1_i][player1_j] = player1;
 			}
 		}
 		if (moveKeys == 75)				//Если стрелка влево
 		{
 			// Влево
-			if (move(floor[s1][s2 - 1]) != 1)
+			if (move(floor[player1_i][player1_j - 1]) != wall)
 			{
-				if (floor[s1][s2 - 1] == 7)
+				if (floor[player1_i][player1_j - 1] == bonus)
 				{
 					bonusCount-=1;
-					happiness+=100;
+					happiness_p1+=100;
 				}
-				floor[s1][s2] = 0;
-				s2--;
-				floor[s1][s2] = 2;
+				floor[player1_i][player1_j] = blank;
+				player1_j--;
+				floor[player1_i][player1_j] = player1;
+			}
+		}
+		///////////////////////////
+		if (moveKeys == 119 || moveKeys == 87)				//Если W
+		{
+			// Вверх
+			if (move(floor[player2_i - 1][player2_j]) != wall)
+			{
+				if (floor[player2_i - 1][player2_j] == bonus)
+				{
+					bonusCount -= 1;
+					happiness_p2 += 100;
+				}
+				floor[player2_i][player2_j] = blank;
+				player2_i--;
+				floor[player2_i][player2_j] = player2;
+			}
+		}
+		if (moveKeys == 115 || moveKeys == 83)				//Если S
+		{
+			// Вниз
+			if (move(floor[player2_i + 1][player2_j]) != wall)
+			{
+				if (floor[player2_i + 1][player2_j] == bonus)
+				{
+					bonusCount -= 1;
+					happiness_p2 += 100;
+				}
+				floor[player2_i][player2_j] = blank;
+				player2_i++;
+				floor[player2_i][player2_j] = player2;
+			}
+		}
+		if (moveKeys == 100 || moveKeys == 68)				//Если D
+		{
+			// Вправо
+			if (move(floor[player2_i][player2_j + 1]) != wall)
+			{
+				if (floor[player2_i][player2_j + 1] == bonus)
+				{
+					bonusCount -= 1;
+					happiness_p2 += 100;
+				}
+				floor[player2_i][player2_j] = blank;
+				player2_j++;
+				floor[player2_i][player2_j] = player2;
+			}
+		}
+		if (moveKeys == 97 || moveKeys == 65)				//Если A
+		{
+			// Влево
+			if (move(floor[player2_i][player2_j - 1]) != wall)
+			{
+				if (floor[player2_i][player2_j - 1] == bonus)
+				{
+					bonusCount -= 1;
+					happiness_p2 += 100;
+				}
+				floor[player2_i][player2_j] = blank;
+				player2_j--;
+				floor[player2_i][player2_j] = player2;
 			}
 		}
 	}		//Цикл работает, пока не вводится esс
 	system("cls");
-	cout << "\n\n\n\t\t\t    TOTAL happiness: " << happiness;
+	cout << "\n\n\n    TOTAL PLAYER 1 HAPPINESS : " << happiness_p1 << "\t  TOTAL PLAYER 2 HAPPINESS : " << happiness_p2;
 	cout << "\n\n\t\t\t\t GAME OVER\n" << endl;
 }
 
