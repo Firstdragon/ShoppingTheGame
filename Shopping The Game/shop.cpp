@@ -10,21 +10,21 @@ shop::shop (int g, int h)
 		exit (-1);
 	}
 	len = g; wid = h;
-	floor = new cell *[len];				//Выделяем память под матрицу floor размера len*wid
+	floor = new cell *[len];				//Р’С‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РїРѕРґ РјР°С‚СЂРёС†Сѓ floor СЂР°Р·РјРµСЂР° len*wid
 	for (int i = 0; i < len; i++)
 		floor[i] = new cell[wid];
 
 	for (int i = 0; i < len; i++)
 		for (int j = 0; j < wid; j++)
-			floor[i][j] = blank;				//Заполняем всё нулями
+			floor[i][j] = blank;				//Р—Р°РїРѕР»РЅСЏРµРј РІСЃС‘ РЅСѓР»СЏРјРё
 
-	//Создание "рамок"
+	//РЎРѕР·РґР°РЅРёРµ "СЂР°РјРѕРє"
 	makeLine(0, 0, wid, "right", wall);      
 	makeLine(len - 1, 0, wid, "right", wall);
 	makeLine(0, 0, len, "down", wall);
 	makeLine(0, wid - 1, len, "down", wall);
 
-	//Создание перекрёстных коридоров
+	//РЎРѕР·РґР°РЅРёРµ РїРµСЂРµРєСЂС‘СЃС‚РЅС‹С… РєРѕСЂРёРґРѕСЂРѕРІ
 	if (len % 2 == 0)
 	{
 
@@ -52,7 +52,7 @@ shop::shop (int g, int h)
 		makeLine(len / 2 - 2, wid - 1, wid / 2 - 1, "left", wall);
 	}
 
-	if (wid % 2 == 0)							//Создание "дверей"
+	if (wid % 2 == 0)							//РЎРѕР·РґР°РЅРёРµ "РґРІРµСЂРµР№"
 	{
 		makeLine(1, wid / 4 - 2, len - 2, "down", blank);
 		makeLine(1, wid / 4 - 1, len - 2, "down", blank);
@@ -65,7 +65,7 @@ shop::shop (int g, int h)
 		makeLine(1, wid / 4 * 3 + 1, len - 2, "down", blank);
 	}
 
-	if (len % 2 == 0)							//Создание "дверей"
+	if (len % 2 == 0)							//РЎРѕР·РґР°РЅРёРµ "РґРІРµСЂРµР№"
 	{
 		makeLine(len / 4 - 2, 1, wid - 2, "right", blank);
 		makeLine(len / 4 - 1, 1, wid - 2, "right", blank);
@@ -95,7 +95,7 @@ shop::shop (int g, int h)
 }
 
 
-int shop::move(cell r)			//Функция, проверяющая возможность перемещения
+int shop::move(cell r)			//Р¤СѓРЅРєС†РёСЏ, РїСЂРѕРІРµСЂСЏСЋС‰Р°СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРµСЂРµРјРµС‰РµРЅРёСЏ
 {
 	if (r == wall)
 		return 1;
@@ -105,8 +105,8 @@ int shop::move(cell r)			//Функция, проверяющая возможность перемещения
 }
 
 
-//Функция, рисующая линию
-//                  коорд. i  | коорд. j |  длина линии |  направление    |    линия чего 
+//Р¤СѓРЅРєС†РёСЏ, СЂРёСЃСѓСЋС‰Р°СЏ Р»РёРЅРёСЋ
+//                  РєРѕРѕСЂРґ. i  | РєРѕРѕСЂРґ. j |  РґР»РёРЅР° Р»РёРЅРёРё |  РЅР°РїСЂР°РІР»РµРЅРёРµ    |    Р»РёРЅРёСЏ С‡РµРіРѕ 
 void shop::makeLine(int iFrom, int jFrom, int lineLength, string lineWhere, cell lineOfWhat)
 {
 	if (lineWhere == "right")
@@ -124,7 +124,7 @@ void shop::makeLine(int iFrom, int jFrom, int lineLength, string lineWhere, cell
 }
 
 
-//Функция, размещающая бонус в случайном месте карты
+//Р¤СѓРЅРєС†РёСЏ, СЂР°Р·РјРµС‰Р°СЋС‰Р°СЏ Р±РѕРЅСѓСЃ РІ СЃР»СѓС‡Р°Р№РЅРѕРј РјРµСЃС‚Рµ РєР°СЂС‚С‹
 void shop::spawnBonus ()
 {
 	if (bonusCount < 15)
@@ -144,8 +144,8 @@ void shop::spawnBonus ()
 	}
 }
 
-//Вывод
-void shop::f_out()				//Вывод магазина
+//Р’С‹РІРѕРґ
+void shop::f_out()				//Р’С‹РІРѕРґ РјР°РіР°Р·РёРЅР°
 {
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -169,7 +169,7 @@ void shop::f_out()				//Вывод магазина
 			{
 				if (floor[i][j] == wall)
 				{
-					//Вывод символа с кодом 219 в таблице аски 
+					//Р’С‹РІРѕРґ СЃРёРјРІРѕР»Р° СЃ РєРѕРґРѕРј 219 РІ С‚Р°Р±Р»РёС†Рµ Р°СЃРєРё 
 					cout << static_cast<unsigned char>(219);
 				}
 				if (floor[i][j] == blank)
@@ -202,9 +202,9 @@ void shop::f_out()				//Вывод магазина
 		moveKeys = _getch();
 		if (moveKeys == 0)
 			moveKeys = _getch();
-		if (moveKeys == 72)				//Если стрелка вверх
+		if (moveKeys == 72)				//Р•СЃР»Рё СЃС‚СЂРµР»РєР° РІРІРµСЂС…
 		{
-			// Вверх
+			// Р’РІРµСЂС…
 			if (move(floor[player1_i - 1][player1_j]) != wall)
 			{
 				if (floor[player1_i - 1][player1_j] == bonus)
@@ -217,9 +217,9 @@ void shop::f_out()				//Вывод магазина
 				floor[player1_i][player1_j] = player1;
 			}
 		}
-		if (moveKeys == 80)				//Если стрелка вниз
+		if (moveKeys == 80)				//Р•СЃР»Рё СЃС‚СЂРµР»РєР° РІРЅРёР·
 		{
-			// Вниз
+			// Р’РЅРёР·
 			if (move(floor[player1_i + 1][player1_j]) != wall)
 			{
 				if (floor[player1_i + 1][player1_j] == bonus)
@@ -232,9 +232,9 @@ void shop::f_out()				//Вывод магазина
 				floor[player1_i][player1_j] = player1;
 			}
 		}
-		if (moveKeys == 77)				//Если стрелка вправо
+		if (moveKeys == 77)				//Р•СЃР»Рё СЃС‚СЂРµР»РєР° РІРїСЂР°РІРѕ
 		{
-			// Вправо
+			// Р’РїСЂР°РІРѕ
 			if (move(floor[player1_i][player1_j + 1]) != wall)
 			{
 				if (floor[player1_i][player1_j + 1] == bonus)
@@ -247,9 +247,9 @@ void shop::f_out()				//Вывод магазина
 				floor[player1_i][player1_j] = player1;
 			}
 		}
-		if (moveKeys == 75)				//Если стрелка влево
+		if (moveKeys == 75)				//Р•СЃР»Рё СЃС‚СЂРµР»РєР° РІР»РµРІРѕ
 		{
-			// Влево
+			// Р’Р»РµРІРѕ
 			if (move(floor[player1_i][player1_j - 1]) != wall)
 			{
 				if (floor[player1_i][player1_j - 1] == bonus)
@@ -263,9 +263,9 @@ void shop::f_out()				//Вывод магазина
 			}
 		}
 		///////////////////////////
-		if (moveKeys == 119 || moveKeys == 87)				//Если W
+		if (moveKeys == 119 || moveKeys == 87)				//Р•СЃР»Рё W
 		{
-			// Вверх
+			// Р’РІРµСЂС…
 			if (move(floor[player2_i - 1][player2_j]) != wall)
 			{
 				if (floor[player2_i - 1][player2_j] == bonus)
@@ -278,9 +278,9 @@ void shop::f_out()				//Вывод магазина
 				floor[player2_i][player2_j] = player2;
 			}
 		}
-		if (moveKeys == 115 || moveKeys == 83)				//Если S
+		if (moveKeys == 115 || moveKeys == 83)				//Р•СЃР»Рё S
 		{
-			// Вниз
+			// Р’РЅРёР·
 			if (move(floor[player2_i + 1][player2_j]) != wall)
 			{
 				if (floor[player2_i + 1][player2_j] == bonus)
@@ -293,9 +293,9 @@ void shop::f_out()				//Вывод магазина
 				floor[player2_i][player2_j] = player2;
 			}
 		}
-		if (moveKeys == 100 || moveKeys == 68)				//Если D
+		if (moveKeys == 100 || moveKeys == 68)				//Р•СЃР»Рё D
 		{
-			// Вправо
+			// Р’РїСЂР°РІРѕ
 			if (move(floor[player2_i][player2_j + 1]) != wall)
 			{
 				if (floor[player2_i][player2_j + 1] == bonus)
@@ -308,9 +308,9 @@ void shop::f_out()				//Вывод магазина
 				floor[player2_i][player2_j] = player2;
 			}
 		}
-		if (moveKeys == 97 || moveKeys == 65)				//Если A
+		if (moveKeys == 97 || moveKeys == 65)				//Р•СЃР»Рё A
 		{
-			// Влево
+			// Р’Р»РµРІРѕ
 			if (move(floor[player2_i][player2_j - 1]) != wall)
 			{
 				if (floor[player2_i][player2_j - 1] == bonus)
@@ -323,14 +323,14 @@ void shop::f_out()				//Вывод магазина
 				floor[player2_i][player2_j] = player2;
 			}
 		}
-	}		//Цикл работает, пока не вводится esс
+	}		//Р¦РёРєР» СЂР°Р±РѕС‚Р°РµС‚, РїРѕРєР° РЅРµ РІРІРѕРґРёС‚СЃСЏ esСЃ
 	system("cls");
 	cout << "\n\n\n    TOTAL PLAYER 1 HAPPINESS : " << happiness_p1 << "\t  TOTAL PLAYER 2 HAPPINESS : " << happiness_p2;
 	cout << "\n\n\t\t\t\t GAME OVER\n" << endl;
 }
 
-//Деструктор
-shop::~shop()					//Очистка выделеной памяти
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
+shop::~shop()					//РћС‡РёСЃС‚РєР° РІС‹РґРµР»РµРЅРѕР№ РїР°РјСЏС‚Рё
 {
 	for( int i = 0; i < len; i++ )
 		delete [] floor[i];
