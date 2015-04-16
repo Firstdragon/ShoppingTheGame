@@ -1,7 +1,7 @@
 #include "Mapcreator.h"
 
-//Функция, рисующая линию
-//                  коорд. i  | коорд. j |  длина линии |  направление    |    линия чего 
+//Р¤СѓРЅРєС†РёСЏ, СЂРёСЃСѓСЋС‰Р°СЏ Р»РёРЅРёСЋ
+//                  РєРѕРѕСЂРґ. i  | РєРѕРѕСЂРґ. j |  РґР»РёРЅР° Р»РёРЅРёРё |  РЅР°РїСЂР°РІР»РµРЅРёРµ    |    Р»РёРЅРёСЏ С‡РµРіРѕ 
 void Mapcreator::makeLine(int iFrom, int jFrom, int lineLength, string lineWhere, cell lineOfWhat, cell **floor)
 {
 	if (lineWhere == "right")
@@ -18,7 +18,7 @@ void Mapcreator::makeLine(int iFrom, int jFrom, int lineLength, string lineWhere
 			floor[i][jFrom] = lineOfWhat;
 }
 
-//Функция, размещающая бонус в случайном месте карты
+//Р¤СѓРЅРєС†РёСЏ, СЂР°Р·РјРµС‰Р°СЋС‰Р°СЏ Р±РѕРЅСѓСЃ РІ СЃР»СѓС‡Р°Р№РЅРѕРј РјРµСЃС‚Рµ РєР°СЂС‚С‹
 void Mapcreator::spawnBonus(int len,int wid, cell **floor)
 {
 	if (bonusCount < 15)
