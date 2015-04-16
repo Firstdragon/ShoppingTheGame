@@ -14,7 +14,7 @@ using namespace
 class shop
 {
 private:
-	enum cell { blank, wall, player1, player2, bonus };
+	enum class cell { BLANK, WALL, PLAYER1, PLAYER2, BONUS };
 	int len;
 	int wid;
 	cell **floor;
