@@ -77,10 +77,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mapcreator.cpp" />
     <ClCompile Include="shop.cpp" />
+    <ClCompile Include="Gameengine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enum.h" />
     <ClInclude Include="shop.h" />
+    <ClInclude Include="Mapcreator.h" />
+    <ClInclude Include="Gameengine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
