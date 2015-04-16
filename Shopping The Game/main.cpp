@@ -1,4 +1,4 @@
-#include "shop.h"
+#include "Gameengine.h"
 
 int main ()
 {
@@ -6,7 +6,8 @@ int main ()
 	int g,h;
 	cin >> g >> h;
 	shop lab(g,h);
-	lab.f_out();
+	Gameengine engine;
+	engine.f_out(lab.len, lab.wid, lab.floor);
 
 	system ("pause");
 	return 0;
