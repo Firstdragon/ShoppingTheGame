@@ -21,7 +21,7 @@ private:
 	int happiness_p2;
 	unsigned short moveKeys;
 public:
-	//Функция, проверяющая возможность перемещения
+	//Р¤СѓРЅРєС†РёСЏ, РїСЂРѕРІРµСЂСЏСЋС‰Р°СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРµСЂРµРјРµС‰РµРЅРёСЏ
 	int move(cell r);
 
 	void f_out(int len, int wid, cell **floor);
