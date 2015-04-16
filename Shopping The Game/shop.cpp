@@ -17,27 +17,27 @@ shop::shop (int g, int h)
 		exit (-1);
 	}
 	len = g; wid = h;
-	floor = new cell *[len];				//Выделяем память под матрицу floor размера len*wid
+	floor = new cell *[len];				//Р’С‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РїРѕРґ РјР°С‚СЂРёС†Сѓ floor СЂР°Р·РјРµСЂР° len*wid
 	for (int i = 0; i < len; i++)
 		floor[i] = new cell[wid];
 
 	for (int i = 0; i < len; i++)
 		for (int j = 0; j < wid; j++)
 <<<<<<< HEAD
-			floor[i][j] = cell::BLANK;				//Заполняем всё нулями
-
-	//Создание "рамок"
-=======
 			floor[i][j] = cell::BLANK;				//Р—Р°РїРѕР»РЅСЏРµРј РІСЃС‘ РЅСѓР»СЏРјРё
 
 	//РЎРѕР·РґР°РЅРёРµ "СЂР°РјРѕРє"
+=======
+			floor[i][j] = cell::BLANK;				//Р вЂ”Р В°Р С—Р С•Р В»Р Р…РЎРЏР ВµР С Р Р†РЎРѓРЎвЂ Р Р…РЎС“Р В»РЎРЏР СР С‘
+
+	//Р РЋР С•Р В·Р Т‘Р В°Р Р…Р С‘Р Вµ "РЎР‚Р В°Р СР С•Р С”"
 >>>>>>> 69da897dd26650acb68e5dee39d5f4e123e412ca
 	create.makeLine(0, 0, wid, "right", cell::WALL, floor);
 	create.makeLine(len - 1, 0, wid, "right", cell::WALL, floor);
 	create.makeLine(0, 0, len, "down", cell::WALL, floor);
 	create.makeLine(0, wid - 1, len, "down", cell::WALL, floor);
 
-	//Создание перекрёстных коридоров
+	//РЎРѕР·РґР°РЅРёРµ РїРµСЂРµРєСЂС‘СЃС‚РЅС‹С… РєРѕСЂРёРґРѕСЂРѕРІ
 	if (len % 2 == 0)
 	{
 
@@ -65,7 +65,7 @@ shop::shop (int g, int h)
 		create.makeLine(len / 2 - 2, wid - 1, wid / 2 - 1, "left", cell::WALL, floor);
 	}
 
-	if (wid % 2 == 0)							//Создание "дверей"
+	if (wid % 2 == 0)							//РЎРѕР·РґР°РЅРёРµ "РґРІРµСЂРµР№"
 	{
 		create.makeLine(1, wid / 4 - 2, len - 2, "down", cell::BLANK, floor);
 		create.makeLine(1, wid / 4 - 1, len - 2, "down", cell::BLANK, floor);
@@ -78,7 +78,7 @@ shop::shop (int g, int h)
 		create.makeLine(1, wid / 4 * 3 + 1, len - 2, "down", cell::BLANK, floor);
 	}
 
-	if (len % 2 == 0)							//Создание "дверей"
+	if (len % 2 == 0)							//РЎРѕР·РґР°РЅРёРµ "РґРІРµСЂРµР№"
 	{
 		create.makeLine(len / 4 - 2, 1, wid - 2, "right", cell::BLANK, floor);
 		create.makeLine(len / 4 - 1, 1, wid - 2, "right", cell::BLANK, floor);
@@ -109,11 +109,11 @@ shop::shop (int g, int h)
 
 
 <<<<<<< HEAD
-//Деструктор
-shop::~shop()					//Очистка выделеной памяти
-=======
 //Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 shop::~shop()					//РћС‡РёСЃС‚РєР° РІС‹РґРµР»РµРЅРѕР№ РїР°РјСЏС‚Рё
+=======
+//Р вЂќР ВµРЎРѓРЎвЂљРЎР‚РЎС“Р С”РЎвЂљР С•РЎР‚
+shop::~shop()					//Р С›РЎвЂЎР С‘РЎРѓРЎвЂљР С”Р В° Р Р†РЎвЂ№Р Т‘Р ВµР В»Р ВµР Р…Р С•Р в„– Р С—Р В°Р СРЎРЏРЎвЂљР С‘
 >>>>>>> 69da897dd26650acb68e5dee39d5f4e123e412ca
 {
 	for( int i = 0; i < len; i++ )
