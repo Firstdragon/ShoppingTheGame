@@ -16,66 +16,66 @@ shop::shop (int g, int h)
 
 	for (int i = 0; i < len; i++)
 		for (int j = 0; j < wid; j++)
-			floor[i][j] = blank;				//Заполняем всё нулями
+			floor[i][j] = cell::BLANK;				//Заполняем всё нулями
 
 	//Создание "рамок"
-	makeLine(0, 0, wid, "right", wall);      
-	makeLine(len - 1, 0, wid, "right", wall);
-	makeLine(0, 0, len, "down", wall);
-	makeLine(0, wid - 1, len, "down", wall);
+	makeLine(0, 0, wid, "right", cell::WALL);      
+	makeLine(len - 1, 0, wid, "right", cell::WALL);
+	makeLine(0, 0, len, "down", cell::WALL);
+	makeLine(0, wid - 1, len, "down", cell::WALL);
 
 	//Создание перекрёстных коридоров
 	if (len % 2 == 0)
 	{
 
-		makeLine(0, wid / 2 + 2, len / 2 - 2, "down", wall);
-		makeLine(0, wid / 2 - 3, len / 2 - 2, "down", wall);
-		makeLine(len - 1, wid / 2 + 2, len / 2 - 2, "up", wall);
-		makeLine(len - 1, wid / 2 - 3, len / 2 - 2, "up", wall);
+		makeLine(0, wid / 2 + 2, len / 2 - 2, "down", cell::WALL);
+		makeLine(0, wid / 2 - 3, len / 2 - 2, "down", cell::WALL);
+		makeLine(len - 1, wid / 2 + 2, len / 2 - 2, "up", cell::WALL);
+		makeLine(len - 1, wid / 2 - 3, len / 2 - 2, "up", cell::WALL);
 	} else {
-		makeLine(0, wid / 2 + 2, len / 2 - 1, "down", wall);
-		makeLine(0, wid / 2 - 2, len / 2 - 1, "down", wall);
-		makeLine(len - 1, wid / 2 + 2, len / 2 - 1, "up", wall);
-		makeLine(len - 1, wid / 2 - 2, len / 2 - 1, "up", wall);
+		makeLine(0, wid / 2 + 2, len / 2 - 1, "down", cell::WALL);
+		makeLine(0, wid / 2 - 2, len / 2 - 1, "down", cell::WALL);
+		makeLine(len - 1, wid / 2 + 2, len / 2 - 1, "up", cell::WALL);
+		makeLine(len - 1, wid / 2 - 2, len / 2 - 1, "up", cell::WALL);
 	}
 
 	if (wid % 2 == 0)
 	{
-		makeLine(len / 2 + 2, 0, wid / 2 - 2, "right", wall);
-		makeLine(len / 2 - 3, 0, wid / 2 - 2, "right", wall);
-		makeLine(len / 2 + 2, wid - 1, wid / 2 - 2, "left", wall);
-		makeLine(len / 2 - 3, wid - 1, wid / 2 - 2, "left", wall);
+		makeLine(len / 2 + 2, 0, wid / 2 - 2, "right", cell::WALL);
+		makeLine(len / 2 - 3, 0, wid / 2 - 2, "right", cell::WALL);
+		makeLine(len / 2 + 2, wid - 1, wid / 2 - 2, "left", cell::WALL);
+		makeLine(len / 2 - 3, wid - 1, wid / 2 - 2, "left", cell::WALL);
 	} else {
-		makeLine(len / 2 + 2, 0, wid / 2 - 1, "right", wall);
-		makeLine(len / 2 - 2, 0, wid / 2 - 1, "right", wall);
-		makeLine(len / 2 + 2, wid - 1, wid / 2 - 1, "left", wall);
-		makeLine(len / 2 - 2, wid - 1, wid / 2 - 1, "left", wall);
+		makeLine(len / 2 + 2, 0, wid / 2 - 1, "right", cell::WALL);
+		makeLine(len / 2 - 2, 0, wid / 2 - 1, "right", cell::WALL);
+		makeLine(len / 2 + 2, wid - 1, wid / 2 - 1, "left", cell::WALL);
+		makeLine(len / 2 - 2, wid - 1, wid / 2 - 1, "left", cell::WALL);
 	}
 
 	if (wid % 2 == 0)							//Создание "дверей"
 	{
-		makeLine(1, wid / 4 - 2, len - 2, "down", blank);
-		makeLine(1, wid / 4 - 1, len - 2, "down", blank);
-		makeLine(1, wid / 4 * 3, len - 2, "down", blank);
-		makeLine(1, wid / 4 * 3 + 1, len - 2, "down", blank);
+		makeLine(1, wid / 4 - 2, len - 2, "down", cell::BLANK);
+		makeLine(1, wid / 4 - 1, len - 2, "down", cell::BLANK);
+		makeLine(1, wid / 4 * 3, len - 2, "down", cell::BLANK);
+		makeLine(1, wid / 4 * 3 + 1, len - 2, "down", cell::BLANK);
 	} else {
-		makeLine(1, wid / 4 - 2, len - 2, "down", blank);
-		makeLine(1, wid / 4 - 1, len - 2, "down", blank);
-		makeLine(1, wid / 4 * 3 + 2, len - 2, "down", blank);
-		makeLine(1, wid / 4 * 3 + 1, len - 2, "down", blank);
+		makeLine(1, wid / 4 - 2, len - 2, "down", cell::BLANK);
+		makeLine(1, wid / 4 - 1, len - 2, "down", cell::BLANK);
+		makeLine(1, wid / 4 * 3 + 2, len - 2, "down", cell::BLANK);
+		makeLine(1, wid / 4 * 3 + 1, len - 2, "down", cell::BLANK);
 	}
 
 	if (len % 2 == 0)							//Создание "дверей"
 	{
-		makeLine(len / 4 - 2, 1, wid - 2, "right", blank);
-		makeLine(len / 4 - 1, 1, wid - 2, "right", blank);
-		makeLine(len / 4 * 3, 1, wid - 2, "right", blank);
-		makeLine(len / 4 * 3 + 1, 1, wid - 2, "right", blank);
+		makeLine(len / 4 - 2, 1, wid - 2, "right", cell::BLANK);
+		makeLine(len / 4 - 1, 1, wid - 2, "right", cell::BLANK);
+		makeLine(len / 4 * 3, 1, wid - 2, "right", cell::BLANK);
+		makeLine(len / 4 * 3 + 1, 1, wid - 2, "right", cell::BLANK);
 	} else {
-		makeLine(len / 4 - 2, 1, wid - 2, "right", blank);
-		makeLine(len / 4 - 1, 1, wid - 2, "right", blank);
-		makeLine(len / 4 * 3 + 2, 1, wid - 2, "right", blank);
-		makeLine(len / 4 * 3 + 1, 1, wid - 2, "right", blank);
+		makeLine(len / 4 - 2, 1, wid - 2, "right", cell::BLANK);
+		makeLine(len / 4 - 1, 1, wid - 2, "right", cell::BLANK);
+		makeLine(len / 4 * 3 + 2, 1, wid - 2, "right", cell::BLANK);
+		makeLine(len / 4 * 3 + 1, 1, wid - 2, "right", cell::BLANK);
 	}
 	srand(time(0));
 	int startBonusCount = (rand() % 12 + 5);
@@ -86,9 +86,9 @@ shop::shop (int g, int h)
 		{
 			int i = (rand() % (len - 3) + 2);
 			int j = (rand() % (wid - 3) + 2);
-			if (floor[i][j] != wall)
+			if (floor[i][j] != cell::WALL)
 			{
-				floor[i][j] = bonus;
+				floor[i][j] =cell::BONUS;
 			}
 		}
 	}
@@ -97,9 +97,9 @@ shop::shop (int g, int h)
 
 int shop::move(cell r)			//Функция, проверяющая возможность перемещения
 {
-	if (r == wall)
+	if (r == cell::WALL)
 		return 1;
-	if (r == bonus)
+	if (r ==cell::BONUS)
 		return 3;
 	return 0;
 }
@@ -135,9 +135,9 @@ void shop::spawnBonus ()
 		{
 			int i = (rand() % (len - 3) + 2);
 			int j = (rand() % (wid - 3) + 2);
-			if (floor[i][j] != wall && floor[i][j] != player1 && floor[i][j] != player2 && floor[i][j] != bonus)
+			if (floor[i][j] != cell::WALL && floor[i][j] != cell::PLAYER1 && floor[i][j] != cell::PLAYER2 && floor[i][j] !=cell::BONUS)
 			{
-				floor[i][j] = bonus;
+				floor[i][j] =cell::BONUS;
 				bonusCount += 1;
 			}
 		}
@@ -153,8 +153,8 @@ void shop::f_out()				//Вывод магазина
 	int player1_j = wid / 2;
 	int player2_i = len - 2;
 	int player2_j = wid / 2;
-	floor[player1_i][player1_j] = player1; 
-	floor[player2_i][player2_j] = player2;
+	floor[player1_i][player1_j] = cell::PLAYER1;
+	floor[player2_i][player2_j] = cell::PLAYER2;
 	happiness_p1 = 0;
 	happiness_p2 = 0;
 	while (moveKeys != 27)
@@ -167,28 +167,28 @@ void shop::f_out()				//Вывод магазина
 		{
 			for (int j = 0; j < wid; j++)
 			{
-				if (floor[i][j] == wall)
+				if (floor[i][j] == cell::WALL)
 				{
 					//Вывод символа с кодом 219 в таблице аски 
 					cout << static_cast<unsigned char>(219);
 				}
-				if (floor[i][j] == blank)
+				if (floor[i][j] == cell::BLANK)
 				{
 					cout << " ";
 				}
-				if (floor[i][j] == player1)
+				if (floor[i][j] == cell::PLAYER1)
 				{
 					SetConsoleTextAttribute(hConsole, 2);
 					cout << "1";
 					SetConsoleTextAttribute(hConsole, 15);
 				}
-				if (floor[i][j] == player2)
+				if (floor[i][j] == cell::PLAYER2)
 				{
 					SetConsoleTextAttribute(hConsole, 3);
 					cout << "2";
 					SetConsoleTextAttribute(hConsole, 15);
 				}
-				if (floor[i][j] == bonus)
+				if (floor[i][j] ==cell::BONUS)
 				{
 					SetConsoleTextAttribute(hConsole, 5);
 					cout << "X";
@@ -205,122 +205,122 @@ void shop::f_out()				//Вывод магазина
 		if (moveKeys == 72)				//Если стрелка вверх
 		{
 			// Вверх
-			if (move(floor[player1_i - 1][player1_j]) != wall)
+			if (move(floor[player1_i - 1][player1_j]) != 1)
 			{
-				if (floor[player1_i - 1][player1_j] == bonus)
+				if (floor[player1_i - 1][player1_j] ==cell::BONUS)
 				{
 					bonusCount-=1;
 					happiness_p1+=100;
 				}
-				floor[player1_i][player1_j] = blank;
+				floor[player1_i][player1_j] = cell::BLANK;
 				player1_i--;
-				floor[player1_i][player1_j] = player1;
+				floor[player1_i][player1_j] = cell::PLAYER1;
 			}
 		}
 		if (moveKeys == 80)				//Если стрелка вниз
 		{
 			// Вниз
-			if (move(floor[player1_i + 1][player1_j]) != wall)
+			if (move(floor[player1_i + 1][player1_j]) != 1)
 			{
-				if (floor[player1_i + 1][player1_j] == bonus)
+				if (floor[player1_i + 1][player1_j] ==cell::BONUS)
 				{
 					bonusCount-=1;
 					happiness_p1+=100;
 				}
-				floor[player1_i][player1_j] = blank;
+				floor[player1_i][player1_j] = cell::BLANK;
 				player1_i++;
-				floor[player1_i][player1_j] = player1;
+				floor[player1_i][player1_j] = cell::PLAYER1;
 			}
 		}
 		if (moveKeys == 77)				//Если стрелка вправо
 		{
 			// Вправо
-			if (move(floor[player1_i][player1_j + 1]) != wall)
+			if (move(floor[player1_i][player1_j + 1]) != 1)
 			{
-				if (floor[player1_i][player1_j + 1] == bonus)
+				if (floor[player1_i][player1_j + 1] ==cell::BONUS)
 				{
 					bonusCount-=1;
 					happiness_p1+=100;
 				}
-				floor[player1_i][player1_j] = blank;
+				floor[player1_i][player1_j] = cell::BLANK;
 				player1_j++;
-				floor[player1_i][player1_j] = player1;
+				floor[player1_i][player1_j] = cell::PLAYER1;
 			}
 		}
 		if (moveKeys == 75)				//Если стрелка влево
 		{
 			// Влево
-			if (move(floor[player1_i][player1_j - 1]) != wall)
+			if (move(floor[player1_i][player1_j - 1]) != 1)
 			{
-				if (floor[player1_i][player1_j - 1] == bonus)
+				if (floor[player1_i][player1_j - 1] ==cell::BONUS)
 				{
 					bonusCount-=1;
 					happiness_p1+=100;
 				}
-				floor[player1_i][player1_j] = blank;
+				floor[player1_i][player1_j] = cell::BLANK;
 				player1_j--;
-				floor[player1_i][player1_j] = player1;
+				floor[player1_i][player1_j] = cell::PLAYER1;
 			}
 		}
 		///////////////////////////
 		if (moveKeys == 119 || moveKeys == 87)				//Если W
 		{
 			// Вверх
-			if (move(floor[player2_i - 1][player2_j]) != wall)
+			if (move(floor[player2_i - 1][player2_j]) != 1)
 			{
-				if (floor[player2_i - 1][player2_j] == bonus)
+				if (floor[player2_i - 1][player2_j] ==cell::BONUS)
 				{
 					bonusCount -= 1;
 					happiness_p2 += 100;
 				}
-				floor[player2_i][player2_j] = blank;
+				floor[player2_i][player2_j] = cell::BLANK;
 				player2_i--;
-				floor[player2_i][player2_j] = player2;
+				floor[player2_i][player2_j] = cell::PLAYER2;
 			}
 		}
 		if (moveKeys == 115 || moveKeys == 83)				//Если S
 		{
 			// Вниз
-			if (move(floor[player2_i + 1][player2_j]) != wall)
+			if (move(floor[player2_i + 1][player2_j]) != 1)
 			{
-				if (floor[player2_i + 1][player2_j] == bonus)
+				if (floor[player2_i + 1][player2_j] ==cell::BONUS)
 				{
 					bonusCount -= 1;
 					happiness_p2 += 100;
 				}
-				floor[player2_i][player2_j] = blank;
+				floor[player2_i][player2_j] = cell::BLANK;
 				player2_i++;
-				floor[player2_i][player2_j] = player2;
+				floor[player2_i][player2_j] = cell::PLAYER2;
 			}
 		}
 		if (moveKeys == 100 || moveKeys == 68)				//Если D
 		{
 			// Вправо
-			if (move(floor[player2_i][player2_j + 1]) != wall)
+			if (move(floor[player2_i][player2_j + 1]) != 1)
 			{
-				if (floor[player2_i][player2_j + 1] == bonus)
+				if (floor[player2_i][player2_j + 1] ==cell::BONUS)
 				{
 					bonusCount -= 1;
 					happiness_p2 += 100;
 				}
-				floor[player2_i][player2_j] = blank;
+				floor[player2_i][player2_j] = cell::BLANK;
 				player2_j++;
-				floor[player2_i][player2_j] = player2;
+				floor[player2_i][player2_j] = cell::PLAYER2;
 			}
 		}
 		if (moveKeys == 97 || moveKeys == 65)				//Если A
 		{
 			// Влево
-			if (move(floor[player2_i][player2_j - 1]) != wall)
+			if (move(floor[player2_i][player2_j - 1]) != 1)
 			{
-				if (floor[player2_i][player2_j - 1] == bonus)
+				if (floor[player2_i][player2_j - 1] ==cell::BONUS)
 				{
 					bonusCount -= 1;
 					happiness_p2 += 100;
 				}
-				floor[player2_i][player2_j] = blank;
+				floor[player2_i][player2_j] = cell::BLANK;
 				player2_j--;
-				floor[player2_i][player2_j] = player2;
+				floor[player2_i][player2_j] = cell::PLAYER2;
 			}
 		}
 	}		//Цикл работает, пока не вводится esс
