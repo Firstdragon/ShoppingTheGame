@@ -2,7 +2,7 @@
 
 Mapcreator creator;
 
-int Gameengine::move(cell r)			//Функция, проверяющая возможность перемещения
+int Gameengine::move(cell r)			//Р¤СѓРЅРєС†РёСЏ, РїСЂРѕРІРµСЂСЏСЋС‰Р°СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРµСЂРµРјРµС‰РµРЅРёСЏ
 {
 	if (r == cell::WALL)
 		return 1;
@@ -11,7 +11,7 @@ int Gameengine::move(cell r)			//Функция, проверяющая возможность перемещения
 	return 0;
 }
 
-void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
+void Gameengine::f_out(int len, int wid, cell **floor)				//Р’С‹РІРѕРґ РјР°РіР°Р·РёРЅР°
 {
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -35,7 +35,7 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 			{
 				if (floor[i][j] == cell::WALL)
 				{
-					//Вывод символа с кодом 219 в таблице аски 
+					//Р’С‹РІРѕРґ СЃРёРјРІРѕР»Р° СЃ РєРѕРґРѕРј 219 РІ С‚Р°Р±Р»РёС†Рµ Р°СЃРєРё 
 					cout << static_cast<unsigned char>(219);
 				}
 				if (floor[i][j] == cell::BLANK)
@@ -68,9 +68,9 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 		moveKeys = _getch();
 		if (moveKeys == 0)
 			moveKeys = _getch();
-		if (moveKeys == 72)				//Если стрелка вверх
+		if (moveKeys == 72)				//Р•СЃР»Рё СЃС‚СЂРµР»РєР° РІРІРµСЂС…
 		{
-			// Вверх
+			// Р’РІРµСЂС…
 			if (move(floor[player1_i - 1][player1_j]) != 1)
 			{
 				if (floor[player1_i - 1][player1_j] == cell::BONUS)
@@ -83,9 +83,9 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 				floor[player1_i][player1_j] = cell::PLAYER1;
 			}
 		}
-		if (moveKeys == 80)				//Если стрелка вниз
+		if (moveKeys == 80)				//Р•СЃР»Рё СЃС‚СЂРµР»РєР° РІРЅРёР·
 		{
-			// Вниз
+			// Р’РЅРёР·
 			if (move(floor[player1_i + 1][player1_j]) != 1)
 			{
 				if (floor[player1_i + 1][player1_j] == cell::BONUS)
@@ -98,9 +98,9 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 				floor[player1_i][player1_j] = cell::PLAYER1;
 			}
 		}
-		if (moveKeys == 77)				//Если стрелка вправо
+		if (moveKeys == 77)				//Р•СЃР»Рё СЃС‚СЂРµР»РєР° РІРїСЂР°РІРѕ
 		{
-			// Вправо
+			// Р’РїСЂР°РІРѕ
 			if (move(floor[player1_i][player1_j + 1]) != 1)
 			{
 				if (floor[player1_i][player1_j + 1] == cell::BONUS)
@@ -113,9 +113,9 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 				floor[player1_i][player1_j] = cell::PLAYER1;
 			}
 		}
-		if (moveKeys == 75)				//Если стрелка влево
+		if (moveKeys == 75)				//Р•СЃР»Рё СЃС‚СЂРµР»РєР° РІР»РµРІРѕ
 		{
-			// Влево
+			// Р’Р»РµРІРѕ
 			if (move(floor[player1_i][player1_j - 1]) != 1)
 			{
 				if (floor[player1_i][player1_j - 1] == cell::BONUS)
@@ -129,9 +129,9 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 			}
 		}
 		///////////////////////////
-		if (moveKeys == 119 || moveKeys == 87)				//Если W
+		if (moveKeys == 119 || moveKeys == 87)				//Р•СЃР»Рё W
 		{
-			// Вверх
+			// Р’РІРµСЂС…
 			if (move(floor[player2_i - 1][player2_j]) != 1)
 			{
 				if (floor[player2_i - 1][player2_j] == cell::BONUS)
@@ -144,9 +144,9 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 				floor[player2_i][player2_j] = cell::PLAYER2;
 			}
 		}
-		if (moveKeys == 115 || moveKeys == 83)				//Если S
+		if (moveKeys == 115 || moveKeys == 83)				//Р•СЃР»Рё S
 		{
-			// Вниз
+			// Р’РЅРёР·
 			if (move(floor[player2_i + 1][player2_j]) != 1)
 			{
 				if (floor[player2_i + 1][player2_j] == cell::BONUS)
@@ -159,9 +159,9 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 				floor[player2_i][player2_j] = cell::PLAYER2;
 			}
 		}
-		if (moveKeys == 100 || moveKeys == 68)				//Если D
+		if (moveKeys == 100 || moveKeys == 68)				//Р•СЃР»Рё D
 		{
-			// Вправо
+			// Р’РїСЂР°РІРѕ
 			if (move(floor[player2_i][player2_j + 1]) != 1)
 			{
 				if (floor[player2_i][player2_j + 1] == cell::BONUS)
@@ -174,9 +174,9 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 				floor[player2_i][player2_j] = cell::PLAYER2;
 			}
 		}
-		if (moveKeys == 97 || moveKeys == 65)				//Если A
+		if (moveKeys == 97 || moveKeys == 65)				//Р•СЃР»Рё A
 		{
-			// Влево
+			// Р’Р»РµРІРѕ
 			if (move(floor[player2_i][player2_j - 1]) != 1)
 			{
 				if (floor[player2_i][player2_j - 1] == cell::BONUS)
@@ -189,7 +189,7 @@ void Gameengine::f_out(int len, int wid, cell **floor)				//Вывод магазина
 				floor[player2_i][player2_j] = cell::PLAYER2;
 			}
 		}
-	}		//Цикл работает, пока не вводится esс
+	}		//Р¦РёРєР» СЂР°Р±РѕС‚Р°РµС‚, РїРѕРєР° РЅРµ РІРІРѕРґРёС‚СЃСЏ esСЃ
 	system("cls");
 	cout << "\n\n\n    TOTAL PLAYER 1 HAPPINESS : " << happiness_p1 << "\t  TOTAL PLAYER 2 HAPPINESS : " << happiness_p2;
 	cout << "\n\n\t\t\t\t GAME OVER\n" << endl;
