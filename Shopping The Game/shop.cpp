@@ -23,9 +23,15 @@ shop::shop (int g, int h)
 
 	for (int i = 0; i < len; i++)
 		for (int j = 0; j < wid; j++)
+<<<<<<< HEAD
 			floor[i][j] = cell::BLANK;				//Çàïîëíÿåì âñ¸ íóëÿìè
 
 	//Ñîçäàíèå "ðàìîê"
+=======
+			floor[i][j] = cell::BLANK;				//Ð—Ð°Ð¿Ð¾Ð»Ð½ÑÐµÐ¼ Ð²ÑÑ‘ Ð½ÑƒÐ»ÑÐ¼Ð¸
+
+	//Ð¡Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ "Ñ€Ð°Ð¼Ð¾Ðº"
+>>>>>>> 69da897dd26650acb68e5dee39d5f4e123e412ca
 	create.makeLine(0, 0, wid, "right", cell::WALL, floor);
 	create.makeLine(len - 1, 0, wid, "right", cell::WALL, floor);
 	create.makeLine(0, 0, len, "down", cell::WALL, floor);
@@ -102,8 +108,13 @@ shop::shop (int g, int h)
 }
 
 
+<<<<<<< HEAD
 //Äåñòðóêòîð
 shop::~shop()					//Î÷èñòêà âûäåëåíîé ïàìÿòè
+=======
+//Ð”ÐµÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€
+shop::~shop()					//ÐžÑ‡Ð¸ÑÑ‚ÐºÐ° Ð²Ñ‹Ð´ÐµÐ»ÐµÐ½Ð¾Ð¹ Ð¿Ð°Ð¼ÑÑ‚Ð¸
+>>>>>>> 69da897dd26650acb68e5dee39d5f4e123e412ca
 {
 	for( int i = 0; i < len; i++ )
 		delete [] floor[i];
